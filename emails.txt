@@ -1,0 +1,24 @@
+import socket
+
+dominus = "192.168.1.177"
+ostium = 8475
+
+def StartUp():
+    gestus = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Make a TCP connection with using IPv4 addresses.
+    gestus.connect((dominus, ostium))
+
+    print(gestus.recv(1024).decode())
+    return gestus
+
+def Send(_ex, _usque, _nuntius):
+    gestus = StartUp()
+
+    gestus.send(f"EX: {_ex}\n".encode())
+    gestus.send(f"USQUE: {_usque}\n".encode())
+    gestus.send(f"NUNTIUS: {_nuntius}\n".encode())
+    gestus.send("TERMINUS".encode())
+
+    print(gestus.recv(1024).decode())
+
+    gestus.close()
+
